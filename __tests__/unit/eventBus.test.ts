@@ -1,7 +1,3 @@
-// createTopic
-// subscribe
-// emit
-import Component from "../../Components/baseClass";
 import EventBus from "../../src/controlCenter/eventBus";
 
 describe("EventBus", () => {
