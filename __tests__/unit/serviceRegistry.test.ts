@@ -5,8 +5,8 @@ describe("ServiceRegistry", () => {
     test("should add a the service_name to the registry", () => {
       const serviceRegistry = new ServiceRegistry();
 
-      const creationTime = Date.now();
-      const testComponent = {
+      const creationTime = Date.now().toString();
+      const testComponent: ServiceRegistryInfo = {
         name: "testComponent1",
         type: "test component",
         endpoints: ["http://example.default.svc.cluster.local"],
