@@ -5,6 +5,10 @@ interface TopicsMap {
 class EventBus {
   topics: TopicsMap = {};
 
+  constructor() {
+    this.topics["time_changed"] = [];
+  }
+
   createTopic(topicName: string) {
     if (!this.topics[topicName]) {
       this.topics[topicName] = [];
