@@ -17,6 +17,12 @@ class ServiceRegistry {
   registerService(service: ServiceRegistryInfo) {
     this.services[service.name] = service;
   }
+
+  deregisterService(serviceName) {
+    if (this.services.hasOwnProperty(serviceName)) {
+      delete this.services[serviceName];
+    }
+  }
 }
 
 export default ServiceRegistry;
