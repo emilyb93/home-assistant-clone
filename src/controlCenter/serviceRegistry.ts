@@ -44,6 +44,19 @@ class ServiceRegistry {
 
     return filteredEndpoints;
   }
+
+  listServices(): ServiceRegistryInfo[] {
+    const servicesRequested = Object.values(this.services);
+
+    const allServices = [];
+
+    servicesRequested.forEach((componentGroups) => {
+      const allServicesOfGroup = Object.values(componentGroups);
+      allServices.push(...allServicesOfGroup);
+    });
+
+    return allServices;
+  }
 }
 
 export default ServiceRegistry;

@@ -141,3 +141,45 @@ describe("ServiceRegistry", () => {
     });
   });
 });
+
+describe("listServices", () => {
+  test("should return all services", () => {
+    const serviceRegistry = new ServiceRegistry();
+
+    const creationTime = Date.now().toString();
+    const testComponent1: ServiceInfo = {
+      name: "testComponent1",
+      type: "test component",
+      endpoints: ["http://example1.default.svc.cluster.local"],
+      version: "1.0",
+    };
+    const testComponent2: ServiceInfo = {
+      name: "testComponent2",
+      type: "different test component",
+      endpoints: ["http://example2.default.svc.cluster.local"],
+      version: "2.0",
+    };
+    serviceRegistry.registerService(testComponent1);
+    serviceRegistry.registerService(testComponent2);
+
+    const serviceList = serviceRegistry.listServices();
+    expect(serviceList.length).toBe(2);
+
+    serviceList.forEach((service) => {
+      expect(service).toEqual(
+        expect.objectContaining({
+          name: expect.any(String),
+          endpoints: expect.any(Array),
+          type: expect.any(String),
+          version: expect.any(String),
+          registrationTimestamp: expect.any(String),
+          health: {
+            status: expect.any(Boolean),
+            lastHealthCheck: expect.any(Number),
+            errorMessage: null,
+          },
+        })
+      );
+    });
+  });
+});
