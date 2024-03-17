@@ -20,7 +20,7 @@ describe("ServiceRegistry", () => {
       };
       serviceRegistry.registerService(testComponent);
 
-      expect(serviceRegistry.services.testComponent1).toBe(testComponent);
+      expect(serviceRegistry.services["testComponent1"]).toBe(testComponent);
     });
   });
 });
