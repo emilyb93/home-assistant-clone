@@ -25,6 +25,9 @@ describe("EventBus", () => {
       eventBus.createTopic("testTopic");
       const testComponent = {
         name: "testComponent",
+        type: "mock component",
+        endpoints: [],
+        version: "1.0",
         consumeEvent: console.log,
       };
 
@@ -38,6 +41,9 @@ describe("EventBus", () => {
 
       const testComponent = {
         name: "testComponent",
+        type: "mock component",
+        endpoints: [],
+        version: "1.0",
         consumeEvent: console.log,
       };
 
@@ -56,6 +62,9 @@ describe("EventBus", () => {
       const mockConsumeEvent = jest.fn();
       const mockComponent = {
         name: "mockComponent",
+        type: "mock component",
+        endpoints: [],
+        version: "1.0",
         consumeEvent: mockConsumeEvent,
       };
 

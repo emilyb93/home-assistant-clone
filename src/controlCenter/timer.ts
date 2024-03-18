@@ -1,8 +1,8 @@
 import type EventBus from "./eventBus";
 
 class Timer {
-  eventBus: EventBus;
-  constructor(eventBus: EventBus) {
+  eventBus: EventBus | null;
+  constructor(eventBus: EventBus = null) {
     this.eventBus = eventBus;
 
     setInterval(() => {

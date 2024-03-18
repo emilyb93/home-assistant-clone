@@ -1,7 +1,23 @@
+import EventBus from "./eventBus";
+import type {
+  ServiceRegistryInfo,
+  ServiceRegistryMap,
+  ServiceInfo,
+  PossibleState,
+} from "../../types";
+
 class ServiceRegistry {
   services: ServiceRegistryMap = {};
+  eventBus: EventBus | null;
 
-  registerService(service: ServiceInfo): void {
+  constructor(eventBus: EventBus = null) {
+    this.eventBus = eventBus;
+  }
+
+  registerService(
+    service: ServiceInfo,
+    intialState: PossibleState = "off"
+  ): void {
     const serviceInfo = {
       ...service,
       registrationTimestamp: Date.now().toString(),
@@ -16,6 +32,13 @@ class ServiceRegistry {
     }
 
     this.services[service.type][service.name] = serviceInfo;
+
+    if (this.eventBus) {
+      this.eventBus.emit({
+        Type: "service_registered",
+        Properties: { componentName: service.name, intialState },
+      });
+    }
   }
 
   deregisterService(serviceName: string): void {

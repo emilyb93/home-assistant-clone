@@ -1,7 +1,5 @@
-interface TopicsMap {
-  [topic: string]: Component[];
-}
-
+import type { TopicsMap, HAEvent, StateMachine } from "../../types";
+import type Component from "../../Components/baseClass";
 class EventBus {
   topics: TopicsMap = {};
 
@@ -15,7 +13,7 @@ class EventBus {
     }
   }
 
-  subscribe(component: Component, topic: string) {
+  subscribe(component: Component | StateMachine, topic: string) {
     if (this.topics.hasOwnProperty(topic)) {
       this.topics[topic].push(component);
     }

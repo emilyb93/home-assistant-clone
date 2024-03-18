@@ -1,5 +1,11 @@
 import ServiceRegistry from "../../src/controlCenter/serviceRegistry";
 
+import type {
+  ServiceRegistryMap,
+  ServiceInfo,
+  ServiceRegistryInfo,
+} from "../../types";
+
 describe("ServiceRegistry", () => {
   describe("registerService", () => {
     test("should add a the service_name to the registry", () => {
