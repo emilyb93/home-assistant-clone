@@ -36,4 +36,14 @@ describe("StateMachine", () => {
       expect(stateMachine.storage.testComponent).toBe("off");
     });
   });
+
+  describe("getState", () => {
+    test("should return the state of a component added to the storage", () => {
+      const stateMachine = new StateMachine(testEventBus);
+
+      stateMachine.addState("testComponent", "off");
+      const state = stateMachine.getState("testComponent");
+      expect(state).toBe("off");
+    });
+  });
 });

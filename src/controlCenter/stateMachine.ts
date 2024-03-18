@@ -13,14 +13,15 @@ class StateMachine {
   storage: StateStorage = {};
   eventBus: EventBus | null;
 
-  eventMap: EventMap;
+  eventMap: EventMap = {};
   constructor(eventBus: EventBus = null) {
     this.eventBus = eventBus;
 
-    this.eventMap = {
-      service_registered: ({ Properties: { componentName, intialState } }) => {
-        this.addState(componentName, intialState);
-      },
+    this.eventMap.service_registered = ({
+      Properties: { componentName, intialState },
+    }) => {
+      console.log({ componentName, intialState }, "<<<<<<<");
+      this.addState(componentName, intialState);
     };
 
     this.eventBus.subscribe(this, "service_registered");
@@ -43,7 +44,17 @@ class StateMachine {
     }
   }
 
-  consumeEvent(event: HAEvent) {}
+  consumeEvent(event: HAEvent) {
+    const eventFunction = this.eventMap[event.Type];
+
+    console.log(event, "<<<<< consume");
+
+    if (eventFunction) eventFunction(event);
+  }
+
+  getState(componentName: string): string {
+    return this.storage[componentName];
+  }
 }
 
 export default StateMachine;
