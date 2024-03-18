@@ -41,9 +41,11 @@ describe("EventBus", () => {
         consumeEvent: console.log,
       };
 
+      expect(eventBus.topics).toEqual({ time_changed: [] });
+
       eventBus.subscribe(testComponent, "testTopic");
 
-      expect(eventBus.topics).toEqual({});
+      expect(eventBus.topics).toEqual({ time_changed: [] });
     });
   });
   describe("emit", () => {
