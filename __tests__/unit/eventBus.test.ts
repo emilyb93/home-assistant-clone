@@ -49,9 +49,12 @@ describe("EventBus", () => {
 
       expect(eventBus.topics).toEqual({ time_changed: [] });
 
-      eventBus.subscribe(testComponent, "testTopic");
+      eventBus.subscribe(testComponent, "test_topic");
 
-      expect(eventBus.topics).toEqual({ time_changed: [] });
+      expect(eventBus.topics).toEqual({
+        time_changed: [],
+        test_topic: [testComponent],
+      });
     });
   });
   describe("emit", () => {

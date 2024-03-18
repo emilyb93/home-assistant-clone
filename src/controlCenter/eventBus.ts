@@ -14,16 +14,24 @@ class EventBus {
   }
 
   subscribe(component: Component | StateMachine, topic: string) {
-    if (this.topics.hasOwnProperty(topic)) {
-      this.topics[topic].push(component);
+    if (!this.topics.hasOwnProperty(topic)) {
+      this.createTopic(topic);
     }
+
+    this.topics[topic].push(component);
   }
 
   emit(event: HAEvent) {
     const { Type } = event;
-    this.topics[Type].forEach((subscriber) => {
-      subscriber.consumeEvent(event);
-    });
+    const subscribers = this.topics[Type];
+
+    console.log(event, "eventBus", subscribers);
+
+    if (subscribers) {
+      subscribers.forEach((subscriber) => {
+        subscriber.consumeEvent(event);
+      });
+    }
   }
 }
 
