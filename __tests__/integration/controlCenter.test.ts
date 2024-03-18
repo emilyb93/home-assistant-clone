@@ -23,10 +23,14 @@ describe("ControlCenter", () => {
         "1.0"
       );
 
-      const { serviceRegistry, stateMachine } = controlCenter;
+      const { serviceRegistry, stateMachine, timer } = controlCenter;
       serviceRegistry.registerService(component);
 
-      expect(stateMachine["testComponent1"]).toBe("off");
+      const state = stateMachine.getState(component.name);
+
+      expect(state).toBe("off");
+
+      clearInterval(timer.interval);
     });
   });
 });
