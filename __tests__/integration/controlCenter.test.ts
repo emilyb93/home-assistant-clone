@@ -3,16 +3,8 @@ import ServiceRegistry from "../../src/controlCenter/serviceRegistry";
 import ControlCenter from "../../src/controlCenter/controlCenter";
 import Component from "../../Components/baseClass";
 
-describe("ControlCenter", () => {
+describe.only("ControlCenter", () => {
   describe("ServiceRegistry", () => {
-    // service registry is requested by the component to subscribe to particular topics
-    // the service registry uses eventbus.subscribe and passes the new component class
-    // component class has a consume event method on it
-    // this method will do a request such as /api/consumeEvent but
-
-    // adds service to the stateMachine
-    // subscribe the component to any required topics
-
     test("adds the service to the stateMachine for tracking", () => {
       const controlCenter = new ControlCenter();
 
@@ -20,7 +12,8 @@ describe("ControlCenter", () => {
         "testComponent1",
         "testComponent",
         ["endpoint.example.com"],
-        "1.0"
+        "1.0",
+        []
       );
 
       const { serviceRegistry, stateMachine, timer } = controlCenter;
@@ -32,5 +25,36 @@ describe("ControlCenter", () => {
 
       clearInterval(timer.interval);
     });
+
+    test("subscribes a component to any requested topics upon registration", () => {
+      const controlCenter = new ControlCenter();
+
+      const component = new Component(
+        "testComponent1",
+        "testComponent",
+        ["endpoint.example.com"],
+        "1.0",
+        ["testTopic"]
+      );
+
+      const { serviceRegistry, stateMachine, timer } = controlCenter;
+      serviceRegistry.registerService(component);
+
+      const consumeSpy = jest.spyOn(component, "consumeEvent");
+
+      const testEvent = {
+        Type: "testTopic",
+        Properties: {
+          message: "check check one two",
+        },
+      };
+      controlCenter.eventBus.emit(testEvent);
+
+      expect(consumeSpy).toHaveBeenCalledWith(testEvent);
+    });
+  });
+
+  describe("StateMachine", () => {
+    test.todo("emits to any subscribers when state has changed");
   });
 });

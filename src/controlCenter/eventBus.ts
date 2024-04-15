@@ -25,7 +25,12 @@ class EventBus {
     const { Type } = event;
     const subscribers = this.topics[Type];
 
-    console.log(event, "eventBus", subscribers);
+    console.log(
+      "The following event: \n",
+      event,
+      "\n has been emitted to these subscribers: \n",
+      subscribers
+    );
 
     if (subscribers) {
       subscribers.forEach((subscriber) => {

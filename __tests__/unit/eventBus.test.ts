@@ -28,6 +28,7 @@ describe("EventBus", () => {
         type: "mock component",
         endpoints: [],
         version: "1.0",
+        topics: [],
         consumeEvent: console.log,
       };
 
@@ -44,6 +45,7 @@ describe("EventBus", () => {
         type: "mock component",
         endpoints: [],
         version: "1.0",
+        topics: [],
         consumeEvent: console.log,
       };
 
@@ -68,6 +70,7 @@ describe("EventBus", () => {
         type: "mock component",
         endpoints: [],
         version: "1.0",
+        topics: [],
         consumeEvent: mockConsumeEvent,
       };
 

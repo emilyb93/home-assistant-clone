@@ -5,6 +5,7 @@ import type {
   ServiceInfo,
   PossibleState,
 } from "../../types";
+import Component from "../../Components/baseClass";
 
 class ServiceRegistry {
   services: ServiceRegistryMap = {};
@@ -15,8 +16,8 @@ class ServiceRegistry {
   }
 
   registerService(
-    service: ServiceInfo,
-    intialState: PossibleState = "off"
+    service: Component,
+    initialState: PossibleState = "off"
   ): void {
     const serviceInfo = {
       ...service,
@@ -27,6 +28,20 @@ class ServiceRegistry {
         errorMessage: null,
       },
     };
+    console.log({ service });
+
+    if (service.topics.length > 0) {
+      const topics = service.topics;
+      topics.forEach((topicName) => {
+        this.eventBus.subscribe(service, topicName);
+        console.log(
+          "The service: \n",
+          service,
+          "\n has been subscribed to: ",
+          topicName
+        );
+      });
+    }
     if (!this.services.hasOwnProperty(service.type)) {
       this.services[service.type] = {};
     }
@@ -36,7 +51,7 @@ class ServiceRegistry {
     if (this.eventBus) {
       this.eventBus.emit({
         Type: "service_registered",
-        Properties: { componentName: service.name, intialState },
+        Properties: { componentName: service.name, initialState },
       });
     }
   }

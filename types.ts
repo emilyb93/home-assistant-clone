@@ -23,6 +23,7 @@ export interface ServiceInfo {
   type: string;
   endpoints: string[];
   version: string;
+  topics: string[];
 }
 
 export interface ServiceRegistryInfo extends ServiceInfo {

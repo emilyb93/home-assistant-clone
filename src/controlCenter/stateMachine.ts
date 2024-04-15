@@ -18,10 +18,17 @@ class StateMachine {
     this.eventBus = eventBus;
 
     this.eventMap.service_registered = ({
-      Properties: { componentName, intialState },
+      Properties: { componentName, initialState },
     }) => {
-      console.log({ componentName, intialState }, "<<<<<<<");
-      this.addState(componentName, intialState);
+      console.log({ componentName, initialState }, "<<<<<<<");
+      console.log(
+        'The component: "',
+        componentName,
+        '" has been registered. \nIts initial state is: "',
+        initialState,
+        '"'
+      );
+      this.addState(componentName, initialState);
     };
 
     this.eventBus.subscribe(this, "service_registered");
@@ -46,8 +53,6 @@ class StateMachine {
 
   consumeEvent(event: HAEvent) {
     const eventFunction = this.eventMap[event.Type];
-
-    console.log(event, "<<<<< consume");
 
     if (eventFunction) eventFunction(event);
   }
