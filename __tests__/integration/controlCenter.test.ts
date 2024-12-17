@@ -2,8 +2,9 @@ import EventBus from "../../src/controlCenter/eventBus";
 import ServiceRegistry from "../../src/controlCenter/serviceRegistry";
 import ControlCenter from "../../src/controlCenter/controlCenter";
 import Component from "../../Components/baseClass";
+import TestComponent from "../utils/testComponent";
 
-describe.only("ControlCenter", () => {
+describe("ControlCenter", () => {
   describe("ServiceRegistry", () => {
     test("adds the service to the stateMachine for tracking", () => {
       const controlCenter = new ControlCenter();
@@ -29,13 +30,8 @@ describe.only("ControlCenter", () => {
     test("subscribes a component to any requested topics upon registration", () => {
       const controlCenter = new ControlCenter();
 
-      const component = new Component(
-        "testComponent1",
-        "testComponent",
-        ["endpoint.example.com"],
-        "1.0",
-        ["testTopic"]
-      );
+      const mockConsume = jest.fn();
+      const component = new TestComponent(mockConsume);
 
       const { serviceRegistry, stateMachine, timer } = controlCenter;
       serviceRegistry.registerService(component);
@@ -51,6 +47,8 @@ describe.only("ControlCenter", () => {
       controlCenter.eventBus.emit(testEvent);
 
       expect(consumeSpy).toHaveBeenCalledWith(testEvent);
+
+      clearInterval(timer.interval);
     });
   });
 
