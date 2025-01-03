@@ -1,4 +1,4 @@
-import EventBus from "../../src/controlCenter/eventBus";
+import EventBus from "../../src/classes/eventBus";
 
 describe("EventBus", () => {
   describe("createTopic", () => {

@@ -9,6 +9,7 @@ type ConsumeEventFunction = (event: HAEvent) => void;
 interface EventMap {
   [key: string]: ConsumeEventFunction;
 }
+
 class StateMachine {
   storage: StateStorage = {};
   eventBus: EventBus | null;
@@ -20,7 +21,6 @@ class StateMachine {
     this.eventMap.service_registered = ({
       Properties: { componentName, initialState },
     }) => {
-      console.log({ componentName, initialState }, "<<<<<<<");
       console.log(
         'The component: "',
         componentName,

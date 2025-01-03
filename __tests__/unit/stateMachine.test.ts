@@ -1,4 +1,4 @@
-import StateMachine from "../../src/controlCenter/stateMachine";
+import StateMachine from "../../src/classes/stateMachine";
 import { EventBus } from "../../types";
 
 const testEventBus = new EventBus();

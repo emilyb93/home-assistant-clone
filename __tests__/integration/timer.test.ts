@@ -1,5 +1,5 @@
-import EventBus from "../../src/controlCenter/eventBus";
-import Timer from "../../src/controlCenter/timer";
+import EventBus from "../../src/classes/eventBus";
+import Timer from "../../src/classes/timer";
 
 describe("Timer", () => {
   test("Publishes a time_changed event to the eventBus every 1000 ms", async () => {

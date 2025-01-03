@@ -1,4 +1,4 @@
-import Component from "../../Components/baseClass";
+import Component from "../../Components/Component";
 import { HAEvent } from "../../types";
 
 type ConsumeFunction = (consumedEvent: HAEvent) => void;

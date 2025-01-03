@@ -1,5 +1,5 @@
 import type { TopicsMap, HAEvent, StateMachine } from "../../types";
-import type Component from "../../Components/baseClass";
+import type Component from "../../Components/Component";
 class EventBus {
   topics: TopicsMap = {};
 

@@ -5,7 +5,7 @@ import type {
   ServiceInfo,
   PossibleState,
 } from "../../types";
-import Component from "../../Components/baseClass";
+import Component from "../../Components/Component";
 
 class ServiceRegistry {
   services: ServiceRegistryMap = {};

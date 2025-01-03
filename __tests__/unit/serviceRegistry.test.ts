@@ -1,5 +1,5 @@
-import ServiceRegistry from "../../src/controlCenter/serviceRegistry";
-import type Component from "../../Components/baseClass";
+import ServiceRegistry from "../../src/classes/serviceRegistry";
+import type Component from "../../Components/Component";
 
 import type {
   ServiceRegistryMap,

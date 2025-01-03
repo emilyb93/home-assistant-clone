@@ -1,7 +1,7 @@
-import EventBus from "../../src/controlCenter/eventBus";
-import ServiceRegistry from "../../src/controlCenter/serviceRegistry";
-import ControlCenter from "../../src/controlCenter/controlCenter";
-import Component from "../../Components/baseClass";
+import EventBus from "../../src/classes/eventBus";
+import ServiceRegistry from "../../src/classes/serviceRegistry";
+import ControlCenter from "../../src/classes/controlCenter";
+import Component from "../../Components/Component";
 import TestComponent from "../utils/testComponent";
 
 describe("ControlCenter", () => {
