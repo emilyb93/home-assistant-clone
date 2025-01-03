@@ -1,11 +1,11 @@
-type HAEvent = {
+export type HAEvent = {
   Type: string;
   Properties: {
     [key: string]: any;
   };
 };
 
-interface ServiceRegistryInfo {
+export interface ServiceRegistryInfo {
   name: string;
   type: string;
   endpoints: string[];
@@ -18,14 +18,15 @@ interface ServiceRegistryInfo {
   };
 }
 
-interface ServiceInfo {
+export interface ServiceInfo {
   name: string;
   type: string;
   endpoints: string[];
   version: string;
+  topics: string[];
 }
 
-interface ServiceRegistryInfo extends ServiceInfo {
+export interface ServiceRegistryInfo extends ServiceInfo {
   registrationTimestamp: string;
   health: {
     status: boolean;
@@ -34,8 +35,27 @@ interface ServiceRegistryInfo extends ServiceInfo {
   };
 }
 
-interface ServiceRegistryMap {
+export interface ServiceRegistryMap {
   [componentType: string]: {
     [componentName: string]: ServiceRegistryInfo;
   };
 }
+export type PossibleState = "active" | "idle" | "off";
+
+import Component from "./Components/Component";
+
+type ComponentOrStateMachine = Component | StateMachine;
+export interface TopicsMap {
+  [topic: string]: ComponentOrStateMachine[];
+}
+
+export interface StateStorage {
+  [componentName: string]: PossibleState;
+}
+
+import EventBus from "./src/classes/eventBus";
+import ServiceRegistry from "./src/classes/serviceRegistry";
+import StateMachine from "./src/classes/stateMachine";
+import Timer from "./src/classes/timer";
+
+export { EventBus, ServiceRegistry, StateMachine, Timer };

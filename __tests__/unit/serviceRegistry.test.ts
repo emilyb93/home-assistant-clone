@@ -1,15 +1,24 @@
-import ServiceRegistry from "../../src/controlCenter/serviceRegistry";
+import ServiceRegistry from "../../src/classes/serviceRegistry";
+import type Component from "../../Components/Component";
+
+import type {
+  ServiceRegistryMap,
+  ServiceInfo,
+  ServiceRegistryInfo,
+} from "../../types";
 
 describe("ServiceRegistry", () => {
   describe("registerService", () => {
     test("should add a the service_name to the registry", () => {
       const serviceRegistry = new ServiceRegistry();
 
-      const testComponent: ServiceInfo = {
+      const testComponent: Component = {
         name: "testComponent1",
         type: "test component",
         endpoints: ["http://example.default.svc.cluster.local"],
         version: "1.0",
+        topics: [],
+        consumeEvent: () => {},
       };
 
       serviceRegistry.registerService(testComponent);
@@ -33,17 +42,13 @@ describe("ServiceRegistry", () => {
       const serviceRegistry = new ServiceRegistry();
 
       const creationTime = Date.now().toString();
-      const testComponent: ServiceRegistryInfo = {
+      const testComponent: Component = {
         name: "testComponent1",
         type: "test component",
         endpoints: ["http://example.default.svc.cluster.local"],
         version: "1.0",
-        registrationTimestamp: creationTime,
-        health: {
-          status: true,
-          lastHealthCheck: 15,
-          errorMessage: null,
-        },
+        topics: [],
+        consumeEvent: () => {},
       };
       serviceRegistry.registerService(testComponent);
       serviceRegistry.deregisterService(testComponent.name);
@@ -57,11 +62,13 @@ describe("ServiceRegistry", () => {
       const serviceRegistry = new ServiceRegistry();
 
       const creationTime = Date.now().toString();
-      const testComponent: ServiceInfo = {
+      const testComponent: Component = {
         name: "testComponent1",
         type: "test component",
         endpoints: ["http://example.default.svc.cluster.local"],
         version: "1.0",
+        topics: [],
+        consumeEvent: () => {},
       };
       serviceRegistry.registerService(testComponent);
 
@@ -74,17 +81,21 @@ describe("ServiceRegistry", () => {
       const serviceRegistry = new ServiceRegistry();
 
       const creationTime = Date.now().toString();
-      const testComponent1: ServiceInfo = {
+      const testComponent1: Component = {
         name: "testComponent1",
         type: "test component",
         endpoints: ["http://example1.default.svc.cluster.local"],
         version: "1.0",
+        topics: [],
+        consumeEvent: () => {},
       };
-      const testComponent2: ServiceInfo = {
+      const testComponent2: Component = {
         name: "testComponent2",
         type: "test component",
         endpoints: ["http://example2.default.svc.cluster.local"],
         version: "2.0",
+        topics: [],
+        consumeEvent: () => {},
       };
       serviceRegistry.registerService(testComponent1);
       serviceRegistry.registerService(testComponent2);
@@ -106,17 +117,21 @@ describe("ServiceRegistry", () => {
       const serviceRegistry = new ServiceRegistry();
 
       const creationTime = Date.now().toString();
-      const testComponent1: ServiceInfo = {
+      const testComponent1: Component = {
         name: "testComponent1",
         type: "test component",
         endpoints: ["http://example1.default.svc.cluster.local"],
         version: "1.0",
+        topics: [],
+        consumeEvent: () => {},
       };
-      const testComponent2: ServiceInfo = {
+      const testComponent2: Component = {
         name: "testComponent2",
         type: "test component",
         endpoints: ["http://example2.default.svc.cluster.local"],
         version: "2.0",
+        topics: [],
+        consumeEvent: () => {},
       };
       serviceRegistry.registerService(testComponent1);
       serviceRegistry.registerService(testComponent2);
@@ -147,17 +162,22 @@ describe("listServices", () => {
     const serviceRegistry = new ServiceRegistry();
 
     const creationTime = Date.now().toString();
-    const testComponent1: ServiceInfo = {
+    const testComponent1: Component = {
       name: "testComponent1",
       type: "test component",
       endpoints: ["http://example1.default.svc.cluster.local"],
       version: "1.0",
+      topics: [],
+      consumeEvent: () => {},
     };
-    const testComponent2: ServiceInfo = {
+    const testComponent2: Component = {
       name: "testComponent2",
       type: "different test component",
       endpoints: ["http://example2.default.svc.cluster.local"],
       version: "2.0",
+
+      topics: [],
+      consumeEvent: () => {},
     };
     serviceRegistry.registerService(testComponent1);
     serviceRegistry.registerService(testComponent2);

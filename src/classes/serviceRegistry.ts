@@ -1,7 +1,24 @@
+import EventBus from "./eventBus";
+import type {
+  ServiceRegistryInfo,
+  ServiceRegistryMap,
+  ServiceInfo,
+  PossibleState,
+} from "../../types";
+import Component from "../../Components/Component";
+
 class ServiceRegistry {
   services: ServiceRegistryMap = {};
+  eventBus: EventBus | null;
 
-  registerService(service: ServiceInfo): void {
+  constructor(eventBus: EventBus = null) {
+    this.eventBus = eventBus;
+  }
+
+  registerService(
+    service: Component,
+    initialState: PossibleState = "off"
+  ): void {
     const serviceInfo = {
       ...service,
       registrationTimestamp: Date.now().toString(),
@@ -11,11 +28,32 @@ class ServiceRegistry {
         errorMessage: null,
       },
     };
+    console.log({ service });
+
+    if (service.topics.length > 0) {
+      const topics = service.topics;
+      topics.forEach((topicName) => {
+        this.eventBus.subscribe(service, topicName);
+        console.log(
+          "The service: \n",
+          service,
+          "\n has been subscribed to: ",
+          topicName
+        );
+      });
+    }
     if (!this.services.hasOwnProperty(service.type)) {
       this.services[service.type] = {};
     }
 
     this.services[service.type][service.name] = serviceInfo;
+
+    if (this.eventBus) {
+      this.eventBus.emit({
+        Type: "service_registered",
+        Properties: { componentName: service.name, initialState },
+      });
+    }
   }
 
   deregisterService(serviceName: string): void {
@@ -56,6 +94,10 @@ class ServiceRegistry {
     });
 
     return allServices;
+  }
+
+  clearAllServices() {
+    this.services = {};
   }
 }
 

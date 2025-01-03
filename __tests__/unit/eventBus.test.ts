@@ -1,4 +1,4 @@
-import EventBus from "../../src/controlCenter/eventBus";
+import EventBus from "../../src/classes/eventBus";
 
 describe("EventBus", () => {
   describe("createTopic", () => {
@@ -25,6 +25,10 @@ describe("EventBus", () => {
       eventBus.createTopic("testTopic");
       const testComponent = {
         name: "testComponent",
+        type: "mock component",
+        endpoints: [],
+        version: "1.0",
+        topics: [],
         consumeEvent: console.log,
       };
 
@@ -38,14 +42,21 @@ describe("EventBus", () => {
 
       const testComponent = {
         name: "testComponent",
+        type: "mock component",
+        endpoints: [],
+        version: "1.0",
+        topics: [],
         consumeEvent: console.log,
       };
 
       expect(eventBus.topics).toEqual({ time_changed: [] });
 
-      eventBus.subscribe(testComponent, "testTopic");
+      eventBus.subscribe(testComponent, "test_topic");
 
-      expect(eventBus.topics).toEqual({ time_changed: [] });
+      expect(eventBus.topics).toEqual({
+        time_changed: [],
+        test_topic: [testComponent],
+      });
     });
   });
   describe("emit", () => {
@@ -56,6 +67,10 @@ describe("EventBus", () => {
       const mockConsumeEvent = jest.fn();
       const mockComponent = {
         name: "mockComponent",
+        type: "mock component",
+        endpoints: [],
+        version: "1.0",
+        topics: [],
         consumeEvent: mockConsumeEvent,
       };
 

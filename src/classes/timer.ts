@@ -1,11 +1,12 @@
 import type EventBus from "./eventBus";
 
 class Timer {
-  eventBus: EventBus;
-  constructor(eventBus: EventBus) {
+  eventBus: EventBus | null;
+  interval: ReturnType<typeof setInterval>;
+  constructor(eventBus: EventBus = null) {
     this.eventBus = eventBus;
 
-    setInterval(() => {
+    this.interval = setInterval(() => {
       eventBus.emit({ Type: "time_changed", Properties: {} });
     }, 1000);
   }
