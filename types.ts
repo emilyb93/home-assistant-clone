@@ -42,7 +42,7 @@ export interface ServiceRegistryMap {
 }
 export type PossibleState = "active" | "idle" | "off";
 
-import Component from "./Components/baseClass";
+import Component from "./Components/Component";
 
 type ComponentOrStateMachine = Component | StateMachine;
 export interface TopicsMap {
@@ -53,9 +53,9 @@ export interface StateStorage {
   [componentName: string]: PossibleState;
 }
 
-import EventBus from "./src/controlCenter/eventBus";
-import ServiceRegistry from "./src/controlCenter/serviceRegistry";
-import StateMachine from "./src/controlCenter/stateMachine";
-import Timer from "./src/controlCenter/timer";
+import EventBus from "./src/classes/eventBus";
+import ServiceRegistry from "./src/classes/serviceRegistry";
+import StateMachine from "./src/classes/stateMachine";
+import Timer from "./src/classes/timer";
 
 export { EventBus, ServiceRegistry, StateMachine, Timer };

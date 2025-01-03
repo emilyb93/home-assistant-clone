@@ -95,6 +95,10 @@ class ServiceRegistry {
 
     return allServices;
   }
+
+  clearAllServices() {
+    this.services = {};
+  }
 }
 
 export default ServiceRegistry;
